@@ -10,5 +10,4 @@ COPY . .
 
 EXPOSE 3000
 
-# Comando para iniciar o aplicativo
 CMD [ "npm", "start" ]

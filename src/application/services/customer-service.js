@@ -1,8 +1,37 @@
 const CustomerRepository = require('../../infra/repositories/customer-repository');
+const transporter = require('../../infra/email/email-provider'); // Importe o módulo de configuração
+
+const winston = require('winston');
+
+const logger = winston.createLogger({
+  transports : [
+      new winston.transports.Console()
+  ]
+});
+
 
 class CustomerService {
   async create(data) {
-    return CustomerRepository.create(data);
+    const dataResult = await CustomerRepository.create(data);
+
+    setTimeout(() => {
+      const mailOptions = {
+        from: process.env.EMAIL_PROVIDER,
+        to: process.env.EMAIL_TO_RECEIVE_NOTIFICATION, 
+        subject: `Novo cliente cadastrado`, 
+        text: `Cliente ${data.name} foi criado`
+      };
+    
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          logger.error('Erro ao enviar e-mail:', error);
+        } else {
+          logger.info('E-mail enviado com sucesso:', info.response);
+        }
+      });
+    }, 2 * 60 * 1000); 
+  
+    return dataResult
   }
 
   async list() {
