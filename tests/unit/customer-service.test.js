@@ -11,13 +11,12 @@ describe('CustomerService', () => {
 
   it('should create a new customer', async () => {
     const customerData = { name: 'John', lastname: 'Doe', age: 30, country: 'Brasil' };
-    const newCustomer = new Customer(customerData);
-    CustomerRepository.create.mockResolvedValue(newCustomer);
+    CustomerRepository.create.mockResolvedValue(customerData);
 
     const createdCustomer = await CustomerService.create(customerData);
 
-    expect(CustomerRepository.create).toHaveBeenCalledWith(newCustomer);
-    expect(createdCustomer).toEqual(newCustomer);
+    expect(CustomerRepository.create).toHaveBeenCalledWith(customerData);
+    expect(createdCustomer).toEqual(customerData);
   });
 
   it('should retrieve a list of customers', async () => {
@@ -52,14 +51,13 @@ describe('CustomerService', () => {
     CustomerRepository.findById.mockResolvedValue(existingCustomer);
 
     const updatedCustomerData = { name: 'Jane', lastname: 'Smith', age: 32, country: 'USA' };
-    const updatedCustomer = new Customer({ ...updatedCustomerData, id: customerId });
 
     CustomerRepository.update.mockResolvedValue(1);
 
     const updatedCustomerResult = await CustomerService.update(customerId, updatedCustomerData);
 
-    expect(CustomerRepository.update).toHaveBeenCalledWith(customerId, updatedCustomer);
-    expect(updatedCustomerResult).toEqual(updatedCustomer);
+    expect(CustomerRepository.update).toHaveBeenCalledWith(customerId, updatedCustomerData);
+    expect(updatedCustomerResult).toEqual(updatedCustomerData);
   });
 
   it('should delete a customer', async () => {

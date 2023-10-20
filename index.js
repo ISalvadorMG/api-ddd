@@ -9,6 +9,17 @@ app.use(bodyParser.json());
 
 app.use('/api', routes);
 
+(async () => {
+  const database = require('./src/infra/database/config');
+
+  try {
+      const result = await database.sync();
+      console.log(result);
+  } catch (error) {
+      console.log(error);
+  }
+})();
+
 app.listen(port, () => {
   console.log(`Server rodando na porta: ${port}`);
 });

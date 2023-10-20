@@ -3,6 +3,7 @@ const ClienteService = require('../services/customer-service');
 class CustomerController {
   async create(req, res) {
     try {
+        console.log(req.body);
       const cliente = await ClienteService.create(req.body);
       return res.status(201).json(cliente);
     } catch (error) {

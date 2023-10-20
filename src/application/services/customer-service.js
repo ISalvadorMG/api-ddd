@@ -1,10 +1,8 @@
-const Customer = require('../../domain/models/customer');
 const CustomerRepository = require('../../infra/repositories/customer-repository');
 
 class CustomerService {
-  async create({ name, lastname, age, country }) {
-    const cliente = new Customer({ name, lastname, age, country });
-    return CustomerRepository.create(cliente);
+  async create(data) {
+    return CustomerRepository.create(data);
   }
 
   async list() {
@@ -15,16 +13,13 @@ class CustomerService {
     return CustomerRepository.findById(id);
   }
 
-  async update(id, { name, lastname, age, country }) {
+  async update(id, data) {
     const existingCliente = await CustomerRepository.findById(id);
     if (!existingCliente) {
       return null;
     }
-    const updatedCliente = new Customer({
-        name, lastname, age, country
-    });
-    await CustomerRepository.update(id, updatedCliente);
-    return updatedCliente;
+    await CustomerRepository.update(id, data);
+    return data;
   }
 
   async delete(id) {
