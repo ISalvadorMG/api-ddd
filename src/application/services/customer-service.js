@@ -18,8 +18,7 @@ class CustomerService {
     if (!existingCliente) {
       return null;
     }
-    await CustomerRepository.update(id, data);
-    return data;
+    return await CustomerRepository.update(id, data);
   }
 
   async delete(id) {
