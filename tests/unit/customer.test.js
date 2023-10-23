@@ -1,4 +1,4 @@
-const CustomerRepository = require('../../src/infra/repositories/customer-repository');
+const CustomerRepository = require('../../src/adapters/customer-repository');
 const CustomerModel = require('../../src/domain/models/customer');
 
 // Mock CustomerModel para simular a interação com o banco de dados

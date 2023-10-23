@@ -1,7 +1,7 @@
 // src/infrastructure/repositories/clienteRepository.js
-const CustomerModel = require('../../domain/models/customer');
+const CustomerModel = require('../domain/models/customer');
 
-class ClienteRepository {
+class CustomerRepository {
   async create(customer) {
     return CustomerModel.create(customer);
   }
@@ -27,4 +27,4 @@ class ClienteRepository {
   }
 }
 
-module.exports = new ClienteRepository();
+module.exports = new CustomerRepository();
